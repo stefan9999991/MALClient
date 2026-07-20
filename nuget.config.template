@@ -18,7 +18,7 @@
         set as the GITHUB_PACKAGES_PAT environment variable to authenticate
         against the source above.
       -->
-      <add key="Username" value="YOUR_GITHUB_USERNAME" />
+      <add key="Username" value="%YOUR_GITHUB_USERNAME%" />
       <add key="ClearTextPassword" value="%GITHUB_PACKAGES_PAT%" />
     </github-jikandotnet-fork>
   </packageSourceCredentials>
