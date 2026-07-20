@@ -61,7 +61,7 @@ namespace MALClient.XShared.Comm.Anime
 
                     try
                     {
-                        var apiUrl = $"https://api.myanimelist.net/v2/anime/season/{requestedYear}/{requestedSeason.ToString().ToLower()}?limit=500&fields=id,title,main_picture,num_episodes,mean,genres,num_list_users,start_season";
+                        var apiUrl = $"https://api.myanimelist.net/v2/anime/season/{requestedYear}/{requestedSeason.ToString().ToLower()}?limit=500&nsfw=true&fields=id,title,main_picture,num_episodes,mean,genres,num_list_users,start_season";
                         var season = JsonSerializer.Deserialize<PaginatedMALResponse<ICollection<AnimeNode<SeasonEntry>>>>(
                             await client.GetStringAsync(apiUrl));
                         var orderedData = season.Data.OrderBy(seasonEntry => 
@@ -79,7 +79,7 @@ namespace MALClient.XShared.Comm.Anime
                                 ImgUrl = seasonSeasonEntry.Node.Picture.Medium,
                                 Episodes = (seasonSeasonEntry.Node.Episodes ?? 0).ToString(),
                                 Score = (float)(seasonSeasonEntry.Node.Score ?? 0),
-                                Genres = seasonSeasonEntry.Node.Genres.Select(item => item.Name).ToList(),
+                                Genres = (seasonSeasonEntry.Node.Genres ?? new List<JsonModels.MAL.Genre>()).Select(item => item.Name).ToList(),
                                 Index = orderedData.FindIndex(seasonSeasonEntry)
                             });
                         }
